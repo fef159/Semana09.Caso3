@@ -1,0 +1,46 @@
+@model List<Producto>
+
+@{
+    ViewData["Title"] = "Inventario";
+}
+
+<section class="card">
+    <p class="eyebrow">Resumen del almacén</p>
+    <h1>Productos registrados</h1>
+    <p class="intro">Consulta los productos guardados durante esta ejecución.</p>
+
+    <a class="button" asp-action="Create">Registrar otro producto</a>
+
+    <div class="table-wrap">
+        @if (Model.Count == 0)
+        {
+            <div class="empty">Todavía no hay productos registrados.</div>
+        }
+        else
+        {
+            <table>
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                        <th>Stock</th>
+                        <th>Correo proveedor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach (var producto in Model)
+                {
+                    <tr>
+                        <td>@producto.Codigo</td>
+                        <td>@producto.Nombre</td>
+                        <td>S/ @producto.Precio.ToString("N2")</td>
+                        <td>@producto.Stock</td>
+                        <td>@producto.CorreoProveedor</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        }
+    </div>
+</section>

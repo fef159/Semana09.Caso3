@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Caso 3</title>
+    <style>
+        :root {
+            --primary: #1d4ed8;
+            --primary-dark: #1e3a8a;
+            --accent: #0f766e;
+            --background: #f1f5f9;
+            --surface: #ffffff;
+            --text: #172033;
+            --muted: #64748b;
+            --border: #dbe3ee;
+            --danger: #b42318;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Inter, "Segoe UI", Arial, sans-serif;
+            color: var(--text);
+            background: linear-gradient(135deg, #eff6ff 0%, var(--background) 55%, #ecfdf5 100%);
+        }
+
+        .topbar {
+            background: linear-gradient(110deg, var(--primary-dark), var(--primary));
+            color: white;
+            box-shadow: 0 4px 16px rgba(30, 58, 138, .22);
+        }
+
+        .topbar-content {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 18px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .brand { font-size: 1.15rem; font-weight: 750; letter-spacing: .2px; }
+
+        nav { display: flex; gap: 8px; }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 8px;
+        }
+
+        nav a:hover { background: rgba(255, 255, 255, .15); }
+
+        main { max-width: 880px; margin: 0 auto; padding: 48px 24px 64px; }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid rgba(219, 227, 238, .9);
+            border-radius: 18px;
+            padding: 32px;
+            box-shadow: 0 18px 45px rgba(30, 58, 138, .10);
+        }
+
+        .eyebrow {
+            margin: 0 0 8px;
+            color: var(--primary);
+            font-size: .78rem;
+            font-weight: 800;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+        }
+
+        h1 { margin: 0; font-size: clamp(1.8rem, 4vw, 2.35rem); line-height: 1.15; }
+        .intro { margin: 10px 0 28px; color: var(--muted); line-height: 1.6; }
+
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .field { margin: 0; }
+        .field.full { grid-column: 1 / -1; }
+
+        label { display: block; margin-bottom: 7px; font-weight: 700; font-size: .94rem; }
+
+        input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: #fbfdff;
+            color: var(--text);
+            font: inherit;
+            outline: none;
+            transition: border-color .2s, box-shadow .2s, background .2s;
+        }
+
+        input:focus {
+            background: white;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(29, 78, 216, .12);
+        }
+
+        .text-danger { color: var(--danger); display: block; margin-top: 6px; font-size: .84rem; }
+        .validation-summary-valid { display: none; }
+
+        .validation-summary-errors {
+            margin-bottom: 20px;
+            padding: 12px 16px;
+            border-left: 4px solid var(--danger);
+            border-radius: 8px;
+            background: #fff1f0;
+        }
+
+        .validation-summary-errors ul { margin: 0; padding-left: 18px; }
+
+        .actions { margin-top: 28px; display: flex; align-items: center; gap: 14px; }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 44px;
+            padding: 11px 22px;
+            border: 0;
+            border-radius: 10px;
+            background: var(--primary);
+            color: white;
+            font: inherit;
+            font-weight: 750;
+            text-decoration: none;
+            cursor: pointer;
+            box-shadow: 0 8px 18px rgba(29, 78, 216, .22);
+        }
+
+        .button:hover { background: var(--primary-dark); }
+        .button.secondary { background: #e8eef8; color: var(--primary-dark); box-shadow: none; }
+
+        .table-wrap { margin-top: 24px; overflow-x: auto; border: 1px solid var(--border); border-radius: 12px; }
+        table { width: 100%; border-collapse: collapse; background: white; }
+        th, td { padding: 14px 16px; text-align: left; border-bottom: 1px solid var(--border); }
+        th { background: #eef4ff; color: var(--primary-dark); font-size: .86rem; }
+        tbody tr:last-child td { border-bottom: 0; }
+        tbody tr:hover { background: #f8fafc; }
+
+        .empty { padding: 28px; text-align: center; color: var(--muted); }
+
+        footer { padding: 20px 24px 32px; text-align: center; color: var(--muted); font-size: .86rem; }
+
+        @@media (max-width: 640px) {
+            .topbar-content { align-items: flex-start; flex-direction: column; gap: 12px; }
+            main { padding: 28px 16px 44px; }
+            .card { padding: 24px 18px; }
+            .form-grid { grid-template-columns: 1fr; }
+            .field.full { grid-column: auto; }
+            .actions { align-items: stretch; flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <header class="topbar">
+        <div class="topbar-content">
+            <div class="brand">Almacén Central</div>
+            <nav aria-label="Navegación principal">
+                <a asp-controller="Productos" asp-action="Create">Nuevo producto</a>
+                <a asp-controller="Productos" asp-action="Lista">Inventario</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        @RenderBody()
+    </main>
+
+    <footer>Caso 3 · Validación con Data Annotations</footer>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

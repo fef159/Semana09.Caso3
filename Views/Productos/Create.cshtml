@@ -1,0 +1,56 @@
+@model Producto
+
+@{
+    ViewData["Title"] = "Registrar producto";
+}
+
+<section class="card">
+    <p class="eyebrow">Gestión de inventario</p>
+    <h1>Registrar producto</h1>
+    <p class="intro">Completa los datos. El sistema validará cada campo antes de guardar.</p>
+
+    <form asp-action="Create" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="form-grid">
+            <div class="field">
+                <label asp-for="Codigo"></label>
+                <input asp-for="Codigo" placeholder="Ejemplo: PROD01" />
+                <span asp-validation-for="Codigo" class="text-danger"></span>
+            </div>
+
+            <div class="field">
+                <label asp-for="Nombre"></label>
+                <input asp-for="Nombre" placeholder="Nombre del producto" />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+
+            <div class="field">
+                <label asp-for="Precio"></label>
+                <input asp-for="Precio" type="number" step="0.01" placeholder="0.00" />
+                <span asp-validation-for="Precio" class="text-danger"></span>
+            </div>
+
+            <div class="field">
+                <label asp-for="Stock"></label>
+                <input asp-for="Stock" type="number" placeholder="0" />
+                <span asp-validation-for="Stock" class="text-danger"></span>
+            </div>
+
+            <div class="field full">
+                <label asp-for="CorreoProveedor"></label>
+                <input asp-for="CorreoProveedor" type="email" placeholder="proveedor@empresa.com" />
+                <span asp-validation-for="CorreoProveedor" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="actions">
+            <button class="button" type="submit">Guardar producto</button>
+            <a class="button secondary" asp-action="Lista">Ver inventario</a>
+        </div>
+    </form>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
